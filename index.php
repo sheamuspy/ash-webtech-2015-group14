@@ -1,8 +1,47 @@
 <html>
 	<head>
 		<title>Index</title>
-		<link rel="stylesheet" href="css/rahila.css">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="jquery-2.1.3.js"></script>
 		<script>
+			
+			var activitiesArray = new Array();
+			
+			function Activity(d, e, u, p){
+				this.date = d;
+				this.equipment = e;
+				this.user = u;
+				this.purpose = p;
+			}
+			
+			function addRow(d, e, u, p){
+				var objActivity = new Activity(d, e, u, p);
+				activitiesArray.push(objActivity);
+			}
+			
+			function displayActivities(){
+				var row;
+				var cell;
+				for(i=0; i<activitiesArray.length;i++){
+					row = table.insertRow();
+					cell = row.insertCell(0);
+					cell.innerHTML=activitiesArray[i].date;
+					cell = row.insertCell(1);
+					cell.innerHTML=activitiesArray[i].equipment;
+					cell = row.insertCell(2);
+					cell.innerHTML=activitiesArray[i].user;
+					cell = row.insertCell(3);
+					cell.innerHTML=activitiesArray[i].purpose;
+				}
+			}
+			
+			function getHistory(){
+				$("#table").load("transaction_methods.php?cmd=1");
+			}
+			
+			function veiwTransaction(id){
+				$("#contentSpace").load("transaction_methods.php?cmd=2&id="+id);
+			}
 			
 		</script>
 	</head>
@@ -15,10 +54,11 @@
 			</tr>
 			<tr>
 				<td id="mainnav">
-					<div class="menuitem">menu 1</div>
-					<div class="menuitem">menu 2</div>
-					<div class="menuitem">menu 3</div>
-					<div class="menuitem">menu 4</div>
+					<div class="menuitem">Home</div>
+					<div class="menuitem">Equipment</div>
+					<div class="menuitem">Labs</div>
+					<div class="menuitem">Supplier</div>
+					<div onclick="getHistory()" class="menuitem">History</div>
 				</td>
 				<td id="content">
 					<div id="divPageMenu">
@@ -32,9 +72,10 @@
 						status message
 					</div>
 					<div id="divContent">
-						Content space
+						<div id="contentSpace">Content space
 						<span class="clickspot">click here </span>
-						<table id="tableExample" class="reportTable" width="100%">
+						</div>
+						<table id="table" class="reportTable" width="100%">
 							<tr class="header">
 								<td>column1</td>
 								<td>column2</td>

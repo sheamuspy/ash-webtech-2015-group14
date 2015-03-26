@@ -97,7 +97,8 @@ table{
 
 .reportTable tr:hover
 {
-    background-color:#FFA375
+    background-color:#FFA375;
+	cursor:hand
 }
 
 .tableForm .label

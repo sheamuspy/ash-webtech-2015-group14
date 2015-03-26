@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2015 at 09:38 PM
+-- Generation Time: Mar 20, 2015 at 04:55 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -28,6 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `webtech_project_equipment` (
   `equipment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `serial_number` varchar(20) NOT NULL,
+  `inventory_number` varchar(20) NOT NULL,
   `equipment_name` varchar(100) NOT NULL,
   `lab_id` int(11) NOT NULL,
   `date_purchased` date NOT NULL,
@@ -42,10 +44,10 @@ CREATE TABLE IF NOT EXISTS `webtech_project_equipment` (
 -- Dumping data for table `webtech_project_equipment`
 --
 
-INSERT INTO `webtech_project_equipment` (`equipment_id`, `equipment_name`, `lab_id`, `date_purchased`, `supplier_id`, `description`) VALUES
-(1, 'telescope', 1, '2015-03-01', 1, ''),
-(2, 'meter rule', 1, '2015-03-05', 2, ''),
-(3, 'venier callipers', 1, '2015-03-10', 1, '');
+INSERT INTO `webtech_project_equipment` (`equipment_id`, `serial_number`, `inventory_number`, `equipment_name`, `lab_id`, `date_purchased`, `supplier_id`, `description`) VALUES
+(1, '', '', 'telescope', 1, '2015-03-01', 1, ''),
+(2, '', '', 'meter rule', 1, '2015-03-05', 2, ''),
+(3, '', '', 'venier callipers', 1, '2015-03-10', 1, '');
 
 -- --------------------------------------------------------
 
@@ -161,8 +163,8 @@ ALTER TABLE `webtech_project_equipment`
 -- Constraints for table `webtech_project_transactions`
 --
 ALTER TABLE `webtech_project_transactions`
-  ADD CONSTRAINT `webtech_project_transactions_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `webtech_project_equipment` (`equipment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_transuser` FOREIGN KEY (`user_id`) REFERENCES `webtech_project_users` (`user_id`);
+  ADD CONSTRAINT `fk_transuser` FOREIGN KEY (`user_id`) REFERENCES `webtech_project_users` (`user_id`),
+  ADD CONSTRAINT `webtech_project_transactions_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `webtech_project_equipment` (`equipment_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
