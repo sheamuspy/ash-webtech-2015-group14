@@ -5,18 +5,25 @@
 		<script src="jquery-2.1.3.js"></script>
 		<script>
 			
-			var activitiesArray = new Array();
-			
-			function Activity(d, e, u, p){
-				this.date = d;
-				this.equipment = e;
-				this.user = u;
-				this.purpose = p;
+			function sendRequest(theURL){
+				var obj = $.ajax({url:theUrl, async:true});
+				
+				var result = $.parseJSON(obj.reponseTxt);
+				
+				return result;
 			}
 			
-			function addRow(d, e, u, p){
-				var objActivity = new Activity(d, e, u, p);
-				activitiesArray.push(objActivity);
+			function searchActivities(){
+				var search = searchBy.value;
+				var txtToSearch = txtSearch.value;
+				/*var objResult = sendRequest("transaction_methods.php?cmd=3&sb=" +search +"&st="+txtToSearch);
+				if(objRequest.result == 0){
+				
+				}else{
+				
+				}*/
+				$("#table").load("transaction_methods.php?cmd=3&sb=" +search +"&st="+txtToSearch);
+		 		
 			}
 			
 			function displayActivities(){
@@ -61,12 +68,14 @@
 					<div onclick="getHistory()" class="menuitem">History</div>
 				</td>
 				<td id="content">
-					<div id="divPageMenu">
-						<span class="menuitem" >page menu 1</span>
-						<span class="menuitem" >page menu 2</span>
-						<span class="menuitem" >page menu 3</span>
+					<div id="divPageMenu" align="right">
+						<span class="menuitem" ><select id="searchBy"><option value="0">Equipment</option>
+														<option value="1">Date</option>
+														<option value="2">User name</option>
+														</select>
+						</span>
 						<input type="text" id="txtSearch" placeholder="Search"/>
-						<span class="menuitem">search</span>		
+						<span class="menuitem" onclick="searchActivities()">search</span>		
 					</div>
 					<div id="divStatus" class="status">
 						status message

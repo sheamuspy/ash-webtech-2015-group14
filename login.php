@@ -4,7 +4,8 @@
 	<script>
 	
 		function sendRequest(requestURL){
-			var request = $.ajax({url:requestURL, async:true});
+			var obj = $.ajax({url:requestURL, async:true});
+			
 		}
 		
 		function login(username, password){
