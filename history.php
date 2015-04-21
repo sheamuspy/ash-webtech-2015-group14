@@ -3,26 +3,24 @@
 		<title>Index</title>
 		<link rel="stylesheet" href="css/style.css">
 		<script src="jquery-2.1.3.js"></script>
+
 		<script>
 			
 			function sendRequest(theURL){
-				var obj = $.ajax({url:theUrl, async:true});
-				
-				var result = $.parseJSON(obj.reponseTxt);
-				
-				return result;
+				var obj = jQuery.ajax({url:theURL, async:false});
+				var response = jQuery.parseJSON(obj.responseText);
+				return response;
 			}
 			
+			
 			function searchActivities(){
+				exitView();
 				var search = searchBy.value;
 				var txtToSearch = txtSearch.value;
-				/*var objResult = sendRequest("transaction_methods.php?cmd=3&sb=" +search +"&st="+txtToSearch);
-				if(objRequest.result == 0){
-				
-				}else{
-				
-				}*/
-				$("#table").load("transaction_methods.php?cmd=3&sb=" +search +"&st="+txtToSearch);
+				var objResult = sendRequest("transaction_methods.php?cmd=3&sb=" +search +"&st="+txtToSearch);
+				$("#table").html(objResult.tabrow);
+				$("#divStatus").html(objResult.message);
+				divStatus.style.backgroundColor="green";
 		 		
 			}
 			
@@ -43,12 +41,26 @@
 			}
 			
 			function getHistory(){
-				$("#table").load("transaction_methods.php?cmd=1");
+				var objResult = sendRequest("transaction_methods.php?cmd=1");
+/*				if(objRequest.result == 0){
+				
+				}else{
+				
+				}*/
+				$("#table").html(objResult.tabrow);
 			}
 			
 			function veiwTransaction(id){
+			
+			
 				$("#contentSpace").load("transaction_methods.php?cmd=2&id="+id);
+				pm_exit.hidden=false;
 			}
+			
+			 function exitView(){
+				contentSpace.innerHTML="";
+				pm_exit.hidden=true;
+			 }
 			
 		</script>
 	</head>
@@ -65,17 +77,23 @@
 					<div class="menuitem">Equipment</div>
 					<div class="menuitem">Labs</div>
 					<div class="menuitem">Supplier</div>
-					<div onclick="getHistory()" class="menuitem">History</div>
+					<a href="history.php" style="text-decoration: none;"><div class="menuitem">History</div></a>
 				</td>
 				<td id="content">
-					<div id="divPageMenu" align="right">
-						<span class="menuitem" ><select id="searchBy"><option value="0">Equipment</option>
-														<option value="1">Date</option>
-														<option value="2">User name</option>
+					<div id="divPageMenu">
+					<div style="float:left">
+					<span class="menuitem" id="pm_exit" hidden="true" onclick="exitView()">Exit</span>
+					</div>
+					<div align="right">
+						<span class="menuitem" ><select id="searchBy"><option value="0">--Search by--</option>
+														<option value="1">Equipment</option>
+														<option value="2">Date</option>
+														<option value="3">User name</option>
 														</select>
 						</span>
 						<input type="text" id="txtSearch" placeholder="Search"/>
-						<span class="menuitem" onclick="searchActivities()">search</span>		
+						<span class="menuitem" onclick="searchActivities()">search</span>
+							</div>
 					</div>
 					<div id="divStatus" class="status">
 						status message
@@ -85,7 +103,7 @@
 						<span class="clickspot">click here </span>
 						</div>
 						<table id="table" class="reportTable" width="100%">
-							<tr class="header">
+						<!--	<tr class="header">
 								<td>column1</td>
 								<td>column2</td>
 								<td>column3</td>
@@ -105,7 +123,10 @@
 							</tr>
 					</div>
 				</td>
-			</tr>
+			</tr>-->
+			<?php
+				include_once("transaction_methods.php");
+			?>
 		</table>
 	</body>
 </html>	

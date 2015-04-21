@@ -1,14 +1,14 @@
 <?php
 	$cmd = $_REQUEST['cmd'];
-	include("users");
-	switch(cmd){
+	
+	switch($cmd){
 		case 1:
 		include("users.php");
 		$username=$_REQUEST['username'];
 		$password=$_REQUEST['password'];
-		$obj= new user();
+		$obj= new users();
 		$obj->connect();
-		$obj->user_password_validation();
+		$obj->user_password_validation($username, $password);
 		
 		if($row=$obj->fetch()){
 			echo'{"status":1, "message":"User found"}';

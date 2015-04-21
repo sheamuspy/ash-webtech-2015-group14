@@ -1,4 +1,31 @@
 <?php
+	if(!isset($_REQUEST['cmd'])){
+		include("transaction.php");
+	
+		$obj = new transaction();
+		$obj->connect();
+		$obj->select_transactions();
+		$table_row="<tr class='header'><td>Name</td><td>Equipment</td><td>Date of transaction</td><td>Purpose</td></tr>";
+		$row;
+		$row_indicator = 0;
+		$count=0;
+		while($row = $obj->fetch()){
+			
+			if($row_indicator==0){
+				$class = 'row1';
+				$row_indicator = 1;
+			}else{
+				$class = 'row2';
+				$row_indicator = 0;
+			}
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
+			$table_row=$table_row."</tr>";
+			$count++;
+		}
+		echo $table_row;
+		exit();
+	}
 
 	$cmd = $_REQUEST['cmd'];
 	
@@ -9,27 +36,25 @@
 		$obj = new transaction();
 		$obj->connect();
 		$obj->select_transactions();
-		echo "<tr class='header'>
-						<td>column1</td>
-						<td>column2</td>
-						<td>column3</td>
-						<td>column4</td>
-					</tr>";
+		$table_row="<tr class='header'><td>Name</td><td>Equipment</td><td>Date of transaction</td><td>Purpose</td></tr>";
 		$row;
-		$count = 0;
+		$row_indicator = 0;
+		$count=0;
 		while($row = $obj->fetch()){
 			
-			if($count==0){
-				$class = "row1";
-				$count = 1;
+			if($row_indicator==0){
+				$class = 'row1';
+				$row_indicator = 1;
 			}else{
-				$class = "row2";
-				$count = 0;
+				$class = 'row2';
+				$row_indicator = 0;
 			}
-			echo "<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
-			echo "<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
-			echo "</tr>";
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
+			$table_row=$table_row."</tr>";
+			$count++;
 		}
+		echo '{"status":1, "numRows":'.$count.', "message":"'.$count.' results found","tabrow":"'.$table_row.'"}';
 		break;
 		
 	case 2:
@@ -59,39 +84,40 @@
 		$obj->connect();
 		switch($search_by){
 			case 0:
-				$obj->select_transactions_by_date($search_txt);
-				break;
+				
 			case 1:
 				$obj->select_transactions_by_equipment($search_txt);
 				break;
 			case 2:
+				$obj->select_transactions_by_date($search_txt);
+				break;
+			case 3:
 				$obj->select_transactions_by_name($search_txt);
 				break;
 			default:
 		
 		}
 		
-		echo "<tr class='header'>
-						<td>column1</td>
-						<td>column2</td>
-						<td>column3</td>
-						<td>column4</td>
-					</tr>";
+		$table_row="<tr class='header'><td>Name</td><td>Equipment</td><td>Date of transaction</td><td>Purpose</td></tr>";
 		$row;
-		$count = 0;
+		$row_indicator = 0;
+		$count=0;
 		while($row = $obj->fetch()){
 			
-			if($count==0){
-				$class = "row1";
-				$count = 1;
+			if($row_indicator==0){
+				$class = 'row1';
+				$row_indicator = 1;
 			}else{
-				$class = "row2";
-				$count = 0;
+				$class = 'row2';
+				$row_indicator = 0;
 			}
-			echo "<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
-			echo "<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
-			echo "</tr>";
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
+			$table_row=$table_row."</tr>";
+			$count++;
 		}
+		echo '{"status":1, "numRows":'.$count.', "message":"'.$count.' results found with \"'.$search_txt.'\"","tabrow":"'.$table_row.'"}';
+		break;
 		
 		
 	default:

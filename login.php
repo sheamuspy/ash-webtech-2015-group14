@@ -4,28 +4,50 @@
 	<script>
 	
 		function sendRequest(requestURL){
-			var obj = $.ajax({url:requestURL, async:true});
+			var obj = $.ajax({url:requestURL, async:false});
+			var response =$.parseJSON(obj.responseText);
+			return response;
 			
 		}
 		
 		function login(username, password){
-			var request = sendRequest("user_methods.php?cmd=1&username="+username+"&password="+password);
+			var response = sendRequest("user_methods.php?cmd=1&username="+username+"&password="+password);
+			divContent.innerHTML=response.message;
+			<?php
+				
+			?>
 		
 		}
 		
 		function validate(){
 			var valid = validatePassword();
+			if(valid){
+				var response = login(loginUsername.value, loginPassword.value);
+				
+			}
+			
+
 		}
 		
 		function validatePassword(){
 			var password = loginPassword.value;
 			var username = loginUsername.value;
-			var passErr=false;
-			var unameErr=false;
-			var r = new RegExp("[a-z]{1,}");
-			if(r.test(password)){
+			var pErr =false;
+			var uErr=false;
+			if(password.length<1){
 				loginPassword.style.backgroundColor="red";
+				pErr=true;
 			}
+			if(username.length<1){
+				loginUsername.style.backgroundColor="red";
+				uErr=true;
+			}
+			if(pErr==false&&uErr==false){
+				return true;
+			}
+			return false;
+			
+			
 		}
 	</script>
 		
@@ -43,6 +65,7 @@
 				<td></td><td><button type="button" onclick="validate()">Login</button></td>
 			</tr>
 		</table>
+		<div id="divContent"></div>
 	</body>
 
 </html>

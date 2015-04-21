@@ -34,7 +34,7 @@
 		function user_password_validation($username, $password){
 		
 			$str_query = "SELECT user_name, user_status, user_contact FROM webtech_project_users
-							WHERE user_name =$username AND password=$password";
+							WHERE user_name='$username' AND password=MD5('$password')";
 			
 			return $this->query($str_query);
 		
