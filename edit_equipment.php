@@ -21,20 +21,20 @@
 					$row=$obj->fetch();
 				}
 			?>
-	<form method="Get" action="page.php">
+	
 		<table>
 			<tr>
-			<td>Equipment Name:</td><td> <input type="text" value="<?php echo $row['equipment_name']?>" name="en"></td>
+			<td>Equipment Name:</td><td> <input type="text" value="<?php echo $row['equipment_name']?>" id="en"></td>
 			</tr>
 			<tr>
-			<td>Serial Number: </td><td><input type="text" value="<?php echo $row['serial_number']?>" name="sn"></td>
+			<td>Serial Number: </td><td><input type="text" value="<?php echo $row['serial_number']?>" id="sn"></td>
 			</tr>
 			
 			<tr>
-			<td>Inventory Number:</td><td> <input type="text" value="<?php echo $row['inventory_number']?>" name="in"></td>
+			<td>Inventory Number:</td><td> <input type="text" value="<?php echo $row['inventory_number']?>" id="inv"></td>
 			</tr>
 			<tr>
-			<td>Lab ID:</td><td><select name="lid">
+			<td>Lab:</td><td><select id="lid">
 						<option value="0">--Select Lab--</option>
 						<?php
 							include_once("labs.php");
@@ -53,10 +53,10 @@
 						</td>
 			</tr>
 			<tr>
-			<td>Date Purchased:</td><td> <input type="date" value="<?php echo $row['date_purchased']?>" name="dp"></td>
+			<td>Date Purchased:</td><td> <input type="date" value="<?php echo $row['date_purchased']?>" id="dp"></td>
 			</tr>
 			<tr>
-			<td>Supplier ID:</td><td> <select name="sid">
+			<td>Supplier:</td><td> <select id="sid">
 							<?php
 							include_once("suppliers.php");
 							$sup=new suppliers();
@@ -74,13 +74,12 @@
 			</td>
 			</tr>
 			<tr>
-			<td>Description: </td><td><textarea name="ed" cols="30" rows="5"><?php echo $row['description']?></textarea></td>
+			<td>Description: </td><td><textarea id="ed" cols="30" rows="5"><?php echo $row['description']?></textarea></td>
 			</tr>
 			<tr><td></td><td>
-			<input type="submit" name="do" value="Edit"></td>
+			<input type="submit" onclick="editEquipment()" value="Edit"></td>
 			</tr>
 		</table>
-	</form>
-		
+			
 	</body>
 </html>

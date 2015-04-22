@@ -7,18 +7,17 @@
 		</script>
 	</head>
 	<body>
-	<form method="Get" action="addequipment.php">
 		<table>
 			<tr>
-				<td>Equipment Name: </td><td><input type="text" name="en" size="30"></td>
+				<td>Equipment Name: </td><td><input type="text" id="en"></td>
 			</tr>
 			<tr>
-				<td>Serial Number: </td><td><input type="text" name="sn" size="30"></td>
+				<td>Serial Number: </td><td><input type="text" id="sn" ></td>
 			</tr>
 			<tr>
-				<td>Inventory Number: </td><td><input type="text" name="in" size="30"></td>
+				<td>Inventory Number: </td><td><input type="text" id="inv" size="30"></td>
 			</tr>
-				<td>Lab ID:</td><td><select name="lid">
+				<td>Lab ID:</td><td><select id="lid">
 							<option value="0">--Select Lab--</option>
 							<?php
 							include_once("labs.php");
@@ -36,10 +35,10 @@
 						?>
 				</td>
 			<tr>
-				<td>Date Purchased:</td><td> <input type="date" name="dp" size="30"></td>
+				<td>Date Purchased:</td><td> <input type="date" id="dp" size="30"></td>
 			</tr>
 			<tr>
-				<td>Supplier ID:</td><td> <select name="sid">
+				<td>Supplier ID:</td><td> <select id="sid">
 								<option value="0">--Select Supplier--</option>
 								<?php
 							include_once("suppliers.php");
@@ -58,11 +57,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Description:</td> <td><textarea name="ed" cols="30" rows="5"></textarea></td>
+				<td>Description:</td> <td><textarea id="ed" cols="30" rows="5"></textarea></td>
 			<tr><td>
-				</td><td><input type="submit" name="do" value="ADD"></td>
+				</td><td><input type="submit" onclick="addEquipment()" value="ADD"></td>
 			</tr>
 		</table>
-	</form>
 	</body>
 </html>

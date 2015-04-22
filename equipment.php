@@ -7,18 +7,31 @@
 		}
 		
 		function add_equipment($sn, $in, $name, $lid, $dp, $sid, $desc){
-			$str_query="insert into webtech_project_equipment set serial_number='$sn', inventory_number='$in', equipment_name='$name', 
-													   lab_id=$lid, date_purchased='$dp', supplier_id=$sid, description='$desc'";
+			$str_query="INSERT INTO webtech_project_equipment SET
+							serial_number='$sn', 
+							inventory_number='$in', 
+							equipment_name='$name',
+							lab_id=$lid,
+							date_purchased='$dp',
+							supplier_id=$sid,
+							description='$desc'";
 			return $this->query($str_query);
 		}
 		function delete_equipment($eid) {
 			$str_query="delete from webtech_project_equipment where equipment_id=$eid";
-			$this->query($str_query);
+			return $this->query($str_query);
 		}
-		function edit_equipment($sn, $in, $name, $lid, $dp, $sid, $desc){
-			$str_query="update webtech_project_equipment set serial_number='$sn', inventory_number='$in', equipment_name='$name',
-														lab_id=$lid, date_purchased='$dp', supplier_id=$sid, description='$desc'";
-			$this->query($str_query);
+		function edit_equipment($eid, $sn, $in, $name, $lid, $dp, $sid, $desc){
+			$str_query="UPDATE webtech_project_equipment SET
+							serial_number='$sn',
+							inventory_number='$in',
+							equipment_name='$name',
+							lab_id=$lid,
+							date_purchased='$dp',
+							supplier_id=$sid,
+							description='$desc'
+							WHERE webtech_project_equipment.equipment_id=$eid";
+			return $this->query($str_query);
 		}
 		function display_equipment() {
 			$str_query = "select equipment_id, serial_number, equipment_name, lab_id, date_purchased from webtech_project_equipment"; 

@@ -8,6 +8,13 @@
 //			function loadEquip(){
 //				$("#tableExample").load("equip.php");
 //			}
+
+			function sendRequest(theURL){
+				var obj = jQuery.ajax({url:theURL, async:false});
+				var response = jQuery.parseJSON(obj.responseText);
+				return response;
+			}
+			
             function loadAddEquipmentForm(){
                 $("#contentSpace").load("add_equipment.php");
 				exit.hidden=false;
@@ -22,6 +29,33 @@
             function loadEditEquipmentForm(){
                 $("#contentSpace").load("edit_equipment.php?eid="+curId);
             }
+			
+			function editEquipment(){
+				var eName=en.value;
+				var serialNum=sn.value;
+				var inventNumber=inv.value;
+				var labId=lid.value;
+				var datePurchased=dp.value;
+				var supplierId=sid.value;
+				var description=ed.value;
+				var objResult= sendRequest("equipment_methods.php?cmd=2&eid="+curId+"&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
+				divStatus.innerHTML = objResult.message;				
+			}
+			
+			function addEquipment(){
+				var eName=en.value;
+				var serialNum=sn.value;
+				var inventNumber=inv.value;
+				var labId=lid.value;
+				var datePurchased=dp.value;
+				var supplierId=sid.value;
+				var description=ed.value;
+				var objResult= sendRequest("equipment_methods.php?cmd=1&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
+				
+				divStatus.innerHTML = objResult.message;
+				
+			}
+			
             function search(){
                 $("#search").load("searchequipment.php");
             }
