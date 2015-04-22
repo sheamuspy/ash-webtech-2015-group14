@@ -74,7 +74,7 @@
 			<tr>
 				<td id="mainnav">
 					<div class="menuitem">Home</div>
-					<div class="menuitem">Equipment</div>
+					<a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
 					<div class="menuitem">Labs</div>
 					<div class="menuitem">Supplier</div>
 					<a href="history.php" style="text-decoration: none;"><div class="menuitem">History</div></a>

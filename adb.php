@@ -106,6 +106,7 @@ class adb {
         $this->result = mysql_query($str_sql,$this->link);
         if (!$this->result) {
             $this->log_error(LOG_LEVEL_DB_FAIL, 4, "query failed", mysql_error($this->link));
+            
             return false;
         }
 
