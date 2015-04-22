@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Index</title>
-		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="style.css">
 		<script>
 			
 		</script>
@@ -15,10 +15,10 @@
 			</tr>
 			<tr>
 				<td id="mainnav">
-					<div class="menuitem">menu 1</div>
-					<div class="menuitem">menu 2</div>
-					<div class="menuitem">menu 3</div>
-					<div class="menuitem">menu 4</div>
+					<div class="menuitem">Home</div>
+					<div class="menuitem">Equipment</div>
+					<a href="labpage.php"><div class="menuitem">Lab</div></a>
+					<div class="menuitem">Supplier</div>
 				</td>
 				<td id="content">
 					<div id="divPageMenu">

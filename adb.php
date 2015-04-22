@@ -7,10 +7,10 @@
  */
 
 define("DB_HOST", 'localhost');
-define("DB_NAME", 'webtech');
+define("DB_NAME", 'csashesi_rahila-sule');
 define("DB_PORT", 3306);
-define("DB_USER","root");
-define("DB_PWORD","");
+define("DB_USER","csashesi_rs16");
+define("DB_PWORD","db!1NN]t");
 
 define("LOG_LEVEL_SEC",0);
 define("LOG_LEVEL_DB_FAIL",0);
@@ -98,7 +98,6 @@ class adb {
 	* connect to db and run a query 
 	*/
     function query($str_sql) {
-		
         if (!$this->connect()) {		
             return false;
         }
@@ -106,9 +105,10 @@ class adb {
         $this->result = mysql_query($str_sql,$this->link);
         if (!$this->result) {
             $this->log_error(LOG_LEVEL_DB_FAIL, 4, "query failed", mysql_error($this->link));
+            //echo "FALSE";
             return false;
         }
-
+        //echo "TRUE";
         return true;
     }
 	
@@ -128,8 +128,3 @@ class adb {
 }
 
 ?>
-
-
-
-
-
