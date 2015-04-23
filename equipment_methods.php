@@ -13,6 +13,9 @@
 		case 2:
 			edit_equipment();
 			break;
+		case 3:
+			delete_equipment();
+			break;
 		default:
 			break;
 	
@@ -68,4 +71,20 @@
 		}
 		
 	}
+	
+	function delete_equipment(){
+		include_once("equipment.php");
+			$obj = new equipment();
+			if(!$obj->connect()){
+				echo '{"result":0,"message":"Sorry we could not connect to the database."}';
+			}
+			$eid =$_REQUEST['eid'];
+			if(!$obj->delete_equipment($eid)) {
+				echo '{"result":0,"message":"Sorry we could not execute the query."}';
+                
+			}else{
+				echo '{"result":1,"message":"Equipment successfully deleted."}';
+			}
+	}
+	
 ?>

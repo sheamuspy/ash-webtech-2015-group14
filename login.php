@@ -1,3 +1,22 @@
+<?php
+	if(isset($_REQUEST['loginUsername'])){
+		session_start();
+		
+		include_once("users.php");
+		$u_name = $_REQUEST['loginUsername'];
+		$p_word = $_REQUEST['loginPassword'];	
+		$obj = new users();
+		if(!$obj->user_password_validation($u_name,$p_word)){
+			echo "wrong credentials";
+		}else{
+			$_SESSION['USERNAME'] = $_REQUEST['loginUsername'];
+			$_SESSION['PASSWORD'] = $_REQUEST['loginPassword'];
+			echo $_SESSION['USERNAME'];
+			echo $_SESSION['PASSWORD'];
+			header("location:index.php");
+		}
+	}
+?>
 <html>
 	<head>
 	<script src="jquery-2.1.3.js"></script>
@@ -13,9 +32,7 @@
 		function login(username, password){
 			var response = sendRequest("user_methods.php?cmd=1&username="+username+"&password="+password);
 			divContent.innerHTML=response.message;
-			<?php
-				
-			?>
+			
 		
 		}
 		
@@ -53,19 +70,22 @@
 		
 	</head>
 	<body>
-		<table align="center">
-			<tr>
-				<td>Username</td><td><input type="text" placeholder="Username" id="loginUsername"></td>
-			</tr>
-			<tr>
-				<td>Password</td><td><input type="password" placeholder="Password" id="loginPassword"></td>
-			</tr>
-			<tr>
-			
-				<td></td><td><button type="button" onclick="validate()">Login</button></td>
-			</tr>
-		</table>
-		<div id="divContent"></div>
+	
+
+		<form method="POST" action="login.php">
+			<table align="center">
+				<tr>
+					<td>Username</td><td><input type="text" placeholder="Username" name="loginUsername" required></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="password" placeholder="Password" name="loginPassword" required></td>
+				</tr>
+				<tr>
+				
+					<td></td><td><button type="submit">Login</button></td>
+				</tr>
+			</table>
+		</form>
 	</body>
 
 </html>

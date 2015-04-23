@@ -36,7 +36,12 @@
 			$str_query = "SELECT user_name, user_status, user_contact FROM webtech_project_users
 							WHERE user_name='$username' AND password=MD5('$password')";
 			
-			return $this->query($str_query);
+			if($this->query($str_query)){
+				if($this->fetch()){
+					return true;
+				}
+			}
+			return false;
 		
 		}
 

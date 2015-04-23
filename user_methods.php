@@ -1,8 +1,18 @@
 <?php
+	if(!isset($_REQUEST['cmd'])){
+		exit();
+	}
 	$cmd = $_REQUEST['cmd'];
 	
 	switch($cmd){
 		case 1:
+			validate();
+			break;
+		default:
+	
+	}
+	
+	function validate(){
 		include("users.php");
 		$username=$_REQUEST['username'];
 		$password=$_REQUEST['password'];
@@ -15,8 +25,6 @@
 		}else{
 			echo'{"status":0, "message":"User not found"}';
 		}
-		default:
-	
 	}
 	
 ?>

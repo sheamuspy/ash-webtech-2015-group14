@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if(!isset($_SESSION['USERNAME'])){
+		header("location:login.php");
+	}
+
+?>
+
 <html>
 	<head>
 		<title>Equipment</title>
@@ -39,7 +47,11 @@
 				var supplierId=sid.value;
 				var description=ed.value;
 				var objResult= sendRequest("equipment_methods.php?cmd=2&eid="+curId+"&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
-				divStatus.innerHTML = objResult.message;				
+				
+				if(objResult.result==1){
+					location.reload();
+					divStatus.innerHTML = objResult.message;
+				}				
 			}
 			
 			function addEquipment(){
@@ -51,8 +63,11 @@
 				var supplierId=sid.value;
 				var description=ed.value;
 				var objResult= sendRequest("equipment_methods.php?cmd=1&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
-				
-				divStatus.innerHTML = objResult.message;
+				if(objResult.result==1){
+					location.reload();
+					divStatus.innerHTML = objResult.message;
+					
+				}
 				
 			}
 			
@@ -60,7 +75,12 @@
                 $("#search").load("searchequipment.php");
             }
             function deleteEquip(){
-                $("#contentSpace").load("delete_equipment.php");
+				var objResult= sendRequest("equipment_methods.php?cmd=3&eid="+curId);
+				if(objResult.result==1){
+					location.reload();
+					divStatus.innerHTML = objResult.message;
+					
+				}
             }
 			
 			function exitView(){
@@ -80,18 +100,19 @@
 			</tr>
 			<tr>
 				<td id="mainnav">
-					<div class="menuitem">Home</div>
-                    <a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
-					<div class="menuitem">Lab</div>
+					<a href="index.php" style="text-decoration:none"><div class="menuitem">Home</div></a>
+                    <a href="equipment_page.php" style="text-decoration:none"><div class="menuitem"><b>Equipment</b></div></a>
+					<a href="labpage.php" style="text-decoration: none;"><div class="menuitem">Labs</div></a>
 					<div class="menuitem">Supplier</div>
 					<a href="history.php" style="text-decoration: none;"><div class="menuitem">History</div></a>
+					<a href="logout.php" style="text-decoration: none;"><div class="menuitem">Logout</div></a>
 				</td>
 				<td id="content">
 					<div id="divPageMenu">
 					<div style="float:left">
 						<span id="change" class="menuitem"  onclick="loadAddEquipmentForm()">Add Equipment</span>
 						<span class="menuitem" id="edit" onclick="loadEditEquipmentForm()" hidden="true">Edit</span> 
-						<span class="menuitem" id="deleteE" hidden="true">Delete</span>
+						<span class="menuitem" onclick="deleteEquip()"id="deleteE" hidden="true">Delete</span>
 						<span class="menuitem" id="exit" onclick="exitView()" hidden="true">Exit</span>
 					</div>
                         <div align="right">
@@ -103,7 +124,7 @@
 						status message
 					</div>
 					<div id="divContent">
-						<div id="contentSpace">Content space<span class="clickspot">click here </span></div>
+						<div id="contentSpace"></div>
 						<table id="tableExample" class="reportTable" width="100%">
                             <?php
 

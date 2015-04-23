@@ -39,7 +39,7 @@
 						<?php
 							include_once("labs.php");
 							$sup=new labs();
-							$sup->get_labs();
+							$sup->get_all_labs();
 							while($sup_row=$sup->fetch()){
 								
 								if($sup_row['lab_id']==$row['lab_id']){
