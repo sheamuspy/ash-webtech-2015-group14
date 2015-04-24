@@ -13,6 +13,7 @@
 		<script src="jquery-2.1.3.js"></script>
         <script>
 			var curId;
+			var userId = <?php echo $_SESSION['USER_ID']; ?>;
 //			function loadEquip(){
 //				$("#tableExample").load("equip.php");
 //			}
@@ -46,7 +47,7 @@
 				var datePurchased=dp.value;
 				var supplierId=sid.value;
 				var description=ed.value;
-				var objResult= sendRequest("equipment_methods.php?cmd=2&eid="+curId+"&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
+				var objResult= sendRequest("equipment_methods.php?cmd=2&eid="+curId+"&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description+"uid="+userId);
 				
 				if(objResult.result==1){
 					location.reload();
@@ -62,7 +63,7 @@
 				var datePurchased=dp.value;
 				var supplierId=sid.value;
 				var description=ed.value;
-				var objResult= sendRequest("equipment_methods.php?cmd=1&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description);
+				var objResult= sendRequest("equipment_methods.php?cmd=1&en="+eName+"&sn="+serialNum+"&in="+inventNumber+"&lid="+labId+"&dp="+datePurchased+"&sid="+supplierId+"&ed="+description+"uid="+userId);
 				if(objResult.result==1){
 					location.reload();
 					divStatus.innerHTML = objResult.message;
@@ -103,7 +104,7 @@
 					<a href="index.php" style="text-decoration:none"><div class="menuitem">Home</div></a>
                     <a href="equipment_page.php" style="text-decoration:none"><div class="menuitem"><b>Equipment</b></div></a>
 					<a href="labpage.php" style="text-decoration: none;"><div class="menuitem">Labs</div></a>
-					<div class="menuitem">Supplier</div>
+					<a href="suppliers_page.php" style="text-decoration:none"><div class="menuitem">Supplier</div></a>
 					<a href="history.php" style="text-decoration: none;"><div class="menuitem">History</div></a>
 					<a href="logout.php" style="text-decoration: none;"><div class="menuitem">Logout</div></a>
 				</td>

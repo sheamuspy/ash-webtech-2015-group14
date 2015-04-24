@@ -83,7 +83,7 @@
 					<a href="index.php" style="text-decoration:none"><div class="menuitem">Home</div></a>
 					<a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
 					<a href="labpage.php" style="text-decoration: none;"><div class="menuitem">Labs</div></a>
-					<div class="menuitem">Supplier</div>
+					<a href="suppliers_page.php" style="text-decoration:none"><div class="menuitem">Supplier</div></a>
 					<a href="history.php" style="text-decoration: none;"><div class="menuitem"><b>History</b></div></a>
 					<a href="logout.php" style="text-decoration: none;"><div class="menuitem">Logout</div></a>
 				</td>

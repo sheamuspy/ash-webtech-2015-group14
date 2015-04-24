@@ -7,7 +7,7 @@
 ?>
 <html>
 	<head>
-		<title>Labs</title>
+		<title>Suppliers</title>
 		<link rel="stylesheet" href="css/style.css">
 		<script src="jquery-2.1.3.js"></script>
 		<script>
@@ -18,20 +18,20 @@
 				return result;	
 			}
 			function addData(){
-				$("#contentSpace").load("addlab.php");
+				$("#contentSpace").load("add_supplier.php");
 			}
-			function viewData(lab_id){
-				$("#contentSpace").load("viewlabs.php?lab_id="+lab_id);
-				curId=lab_id;
+			function viewData(supplier_id){
+				$("#contentSpace").load("view_suppliers.php?supplier_id="+supplier_id);
+				curId=supplier_id;
 				exit.hidden=false;
 				deleteE.hidden=false;
 				edit.hidden=false;
 			}
 			function editData(lab_id){
-				$("#contentSpace").load("editlab.php?lab_id="+curId);
+				$("#contentSpace").load("edit_supplier.php?supplier_id="+curId);
 			}
 			function deleteData(id){
-				var url="lab_functions.php?cmd=1&id="+curId;
+				var url="supplier_methods.php?cmd=1&id="+curId;
 				var obj=sendRequest(url);
 				if(obj.result==1){
 					$("#divStatus").text(obj.message);
@@ -39,26 +39,26 @@
 					$("#divStatus").text(obj.message);
 					$("#divStatus").css("backgroundColor","red");
 				}
-				document.location='labpage.php';
+				document.location='suppliers_page.php';
 				return;
 			}
 			function search(){
 				var search_text=txtSearch.value;
-				var strUrl="lab_functions.php?cmd=2&st="+search_text;
+				var strUrl="supplier_methods.php?cmd=2&st="+search_text;
 				var objResult=sendRequest(strUrl);
 				if(objResult.result==1){
-					obj=objResult.labs;
+					obj=objResult.suppliers;
 					var row = '<table class="reportTable" width="100%">';
-						row = row+"<tr class='header'><td>Lab Name</td><td>Department Head</td><td>Location</td><td></td><td></td></tr>";
+						row = row+"<tr class='header'><td>Supplier Name</td><td>Supplier Address</td><td>Phone Number</td></tr>";
 			    	for(var i=0; i<obj.length; i++){
-			    	if(i%2==0){
+					if(i%2==0){
 						row=row+"<tr class='row1'>";
 					}else{
 						row=row+"<tr class='row2'>";
 					}
-			    	row=row+"<td>" + obj[i].lab_name + "</td>";
-			    	row=row+"<td>" + obj[i].department_head + "</td>";
-			    	row=row+"<td>" + obj[i].lab_location + "</td>";
+			    	row=row+"<td>" + obj[i].supplier_name + "</td>";
+			    	row=row+"<td>" + obj[i].address + "</td>";
+			    	row=row+"<td>" + obj[i].phone_number + "</td>";
 			    	/*row=row+"<td style='cursor:pointer' onclick= 'editData($id)'>Edit</td><td style='cursor:pointer' onclick= 'deleteData($id)'>Delete</td></tr>";*/
 			    	row=row+"</tr>";
 			      	}
@@ -85,8 +85,8 @@
 				<td id="mainnav">
 					<a href="index.php" style="text-decoration:none"><div class="menuitem">Home</div></a>
 					<a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
-					<a href="labpage.php" style="text-decoration:none"><div class="menuitem"><b>Labs</b></div></a>
-					<a href="suppliers_page.php" style="text-decoration:none"><div class="menuitem">Supplier</div></a>
+					<a href="labpage.php" style="text-decoration:none"><div class="menuitem">Labs</div></a>
+					<a href="suppliers_page.php" style="text-decoration:none"><div class="menuitem"><b>Supplier</b></div></a>
 					<a href="history.php" style="text-decoration: none;"><div class="menuitem">History</div></a>
 					<a href="logout.php" style="text-decoration: none;"><div class="menuitem">Logout</div></a>
 				</td>
@@ -110,15 +110,13 @@
 						<div id="contentSpace"></div>
 						<table id="tableExample" class="reportTable" width="100%">
 							<?php
-								include_once("labs.php");
-								$obj = new labs();
-								$obj->get_all_labs();
+								include_once("suppliers.php");
+								$obj = new suppliers();
+								$obj->get_suppliers();
 								echo "<tr class='header'>
-										<td>Lab Name</td>
-										<td>Department Head</td>
-										<td>Location</td>
-										<td></td>
-										<td></td>
+										<td>Supplier Name</td>
+										<td>Supplier Address</td>
+										<td>Phone Number</td>
 										</tr>";
 									$row_indicator = 0;
 									$count=0;
@@ -130,11 +128,11 @@
 										$class = 'row2';
 										$row_indicator = 0;
 									}
-									$id=$row['lab_id'];
+									$id=$row['supplier_id'];
 									echo "<tr class=$class onclick='viewData($id)'>
-									<td >{$row['lab_name']}</td>
-									<td>{$row['department_head']}</td>
-									<td>{$row['lab_location']}</td>
+									<td >{$row['supplier_name']}</td>
+									<td>{$row['address']}</td>
+									<td>{$row['phone_number']}</td>
 									</tr>";
 								}
 							?>

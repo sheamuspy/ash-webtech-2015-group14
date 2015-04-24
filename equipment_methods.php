@@ -36,8 +36,9 @@
 			$date_purchased=$_REQUEST['dp'];
 			$supplier_id=$_REQUEST['sid'];
 			$description=$_REQUEST['ed'];
+			$user_id = $_REQUEST['uid'];
 		
-			if(!$obj->add_equipment($serial_number, $inventory_number, $name, $lab_id, $date_purchased, $supplier_id, $description)) {
+			if(!$obj->add_equipment($serial_number, $inventory_number, $name, $lab_id, $date_purchased, $supplier_id, $description, $user_id)) {
 				echo '{"result":0,"message":"Sorry we could not execute the query."}';
                 
 			}else{
@@ -61,8 +62,9 @@
 			$date_purchased=$_REQUEST['dp'];
 			$supplier_id=$_REQUEST['sid'];
 			$description=$_REQUEST['ed'];
+			$user_id = $_REQUEST['uid'];
 		
-			if(!$obj->edit_equipment($eid,$serial_number, $inventory_number, $name, $lab_id, $date_purchased, $supplier_id, $description)) {
+			if(!$obj->edit_equipment($eid,$serial_number, $inventory_number, $name, $lab_id, $date_purchased, $supplier_id, $description, $user_id)) {
 				echo '{"result":0,"message":"Sorry we could not execute the query."}';
                 
 			}else{

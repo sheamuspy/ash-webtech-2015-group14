@@ -6,13 +6,13 @@
 		$u_name = $_REQUEST['loginUsername'];
 		$p_word = $_REQUEST['loginPassword'];	
 		$obj = new users();
-		if(!$obj->user_password_validation($u_name,$p_word)){
+		$row = $obj->user_password_validation($u_name,$p_word);
+		if(!$row){
 			echo "wrong credentials";
 		}else{
-			$_SESSION['USERNAME'] = $_REQUEST['loginUsername'];
-			$_SESSION['PASSWORD'] = $_REQUEST['loginPassword'];
-			echo $_SESSION['USERNAME'];
-			echo $_SESSION['PASSWORD'];
+			$_SESSION['USER_ID'] = $row['user_id'];
+			$_SESSION['USERNAME'] = $row['user_name'];
+			$_SESSION['PASSWORD'] = $_REQUEST['password'];
 			header("location:index.php");
 		}
 	}
