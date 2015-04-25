@@ -17,11 +17,12 @@
 		<table align='center'>
 			<tr>
 				<td colspan="2" id="pageheader">
-					Application Header
+					<b>Ashesi Engineering Inventory</b>
 				</td>
 			</tr>
 			<tr>
 				<td id="mainnav">
+					<div><?php echo $_SESSION['USERNAME']?><br> logged in</div>
 					<a href="index.php" style="text-decoration:none"><div class="menuitem"><b>Home</b></div></a>
 					<a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
 					<a href="labpage.php" style="text-decoration: none;"><div class="menuitem">Labs</div></a>
@@ -32,9 +33,6 @@
 				<td id="content">
 					<div id="divPageMenu">
 								
-					</div>
-					<div id="divStatus" class="status">
-						status message
 					</div>
 					<div id="divContent">
 						

@@ -9,20 +9,21 @@
 	<body>
 		<table>
 			<tr>
-				<td>Equipment Name: </td><td><input type="text" id="en"></td>
+				<td>Equipment Name: </td><td><input type="text" id="en" required></td>
 			</tr>
 			<tr>
-				<td>Serial Number: </td><td><input type="text" id="sn" ></td>
+				<td>Serial Number: </td><td><input type="text" id="sn" required></td>
 			</tr>
 			<tr>
-				<td>Inventory Number: </td><td><input type="text" id="inv" size="30"></td>
+				<td>Inventory Number: </td><td><input type="text" id="inv" size="30" required></td>
 			</tr>
 				<td>Lab ID:</td><td><select id="lid">
 							<option value="0">--Select Lab--</option>
 							<?php
 							include_once("labs.php");
 							$sup=new labs();
-							$sup->get_labs();
+							
+							$sup->get_all_labs();
 							while($sup_row=$sup->fetch()){
 								
 								if($sup_row['lab_id']==$row['lab_id']){
@@ -35,7 +36,7 @@
 						?>
 				</td>
 			<tr>
-				<td>Date Purchased:</td><td> <input type="date" id="dp" size="30"></td>
+				<td>Date Purchased:</td><td> <input type="date" id="dp" size="30" required></td>
 			</tr>
 			<tr>
 				<td>Supplier ID:</td><td> <select id="sid">
@@ -43,6 +44,7 @@
 								<?php
 							include_once("suppliers.php");
 							$sup=new suppliers();
+							
 							$sup->get_suppliers();
 							while($sup_row=$sup->fetch()){
 								
@@ -57,7 +59,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Description:</td> <td><textarea id="ed" cols="30" rows="5"></textarea></td>
+				<td>Description:</td> <td><textarea id="ed" cols="30" rows="5"required></textarea></td>
 			<tr><td>
 				</td><td><input type="submit" onclick="addEquipment()" value="ADD"></td>
 			</tr>

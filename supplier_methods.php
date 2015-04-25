@@ -50,6 +50,6 @@ function search_suppliers(){
 			echo ",";
 		}
 	}
-	echo '], "message":"'.$count.' results found with \"'.$search_text.'\"","numRos":.'$count.'}';
+	echo '], "message":"'.$count.' results found with \"'.$search_text.'\"","numRows":'.$count.'}';
 }
 ?>

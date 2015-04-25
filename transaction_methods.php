@@ -18,7 +18,7 @@
 				$class = 'row2';
 				$row_indicator = 0;
 			}
-			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})' style='cursor:pointer'>";
 			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
 			$table_row=$table_row."</tr>";
 			$count++;
@@ -49,7 +49,7 @@
 				$class = 'row2';
 				$row_indicator = 0;
 			}
-			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})' style='cursor:pointer'>";
 			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
 			$table_row=$table_row."</tr>";
 			$count++;
@@ -66,10 +66,10 @@
 		
 		$transaction=$obj->fetch();
 		$response = "<table>";
-		$response = $response."<tr><td>Person that completed the transaction</td><td>{$transaction['user_name']}</td></tr>";
-		$response = $response."<tr><td>Equipment that was blah blah</td><td>{$transaction['equipment_name']}</td></tr>";
-		$response = $response."<tr><td>date of blah blah</td><td>{$transaction['transaction_date']}</td></tr>";
-		$response = $response."<tr><td>What was done</td><td>{$transaction['purpose']}</td></tr>";
+		$response = $response."<tr><td>User that completed task</td><td>{$transaction['user_name']}</td></tr>";
+		$response = $response."<tr><td>Equipment name</td><td>{$transaction['equipment_name']}</td></tr>";
+		$response = $response."<tr><td>Date transaction was completed</td><td>{$transaction['transaction_date']}</td></tr>";
+		$response = $response."<tr><td>Purpose of transaction</td><td>{$transaction['purpose']}</td></tr>";
 		$response = $response."</table>";
 		echo $response;
 		break;
@@ -111,7 +111,7 @@
 				$class = 'row2';
 				$row_indicator = 0;
 			}
-			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})'>";
+			$table_row=$table_row."<tr class=$class onclick='veiwTransaction({$row['transaction_id']})' style='cursor:pointer'>";
 			$table_row=$table_row."<td>{$row['user_name']}</td><td>{$row['equipment_name']}</td><td>{$row['transaction_date']}</td><td>{$row['purpose']}</td>";
 			$table_row=$table_row."</tr>";
 			$count++;
@@ -119,9 +119,29 @@
 		echo '{"status":1, "numRows":'.$count.', "message":"'.$count.' results found with \"'.$search_txt.'\"","tabrow":"'.$table_row.'"}';
 		break;
 		
-		
+	
+	case 4:
+		add_transaction();
+		break;
 	default:
+		break;
 	
 	
 	}
+	
+	function add_transaction(){
+	
+		$uid=$_REQUEST['uid'];
+		$eid=$_REQUEST['eid'];
+		$pur=$_REQUEST['pur'];
+		include_once("transaction.php");
+		
+		$trans= new transaction();
+		$trans->connect();
+		if(!$trans->add_transaction($uid, $eid, $pur)){
+			echo '{"result":0,"message": "Could not add transaction."}';
+		}else{
+			echo '{"result":1,"message": "transaction added."}';
+		}
+}
 ?>

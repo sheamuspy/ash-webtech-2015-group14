@@ -16,6 +16,12 @@
 		case 3:
 			delete_equipment();
 			break;
+		case 4:
+			search_equipment();
+			break;
+		case 5:
+			get_last();
+			break;
 		default:
 			break;
 	
@@ -68,6 +74,8 @@
 				echo '{"result":0,"message":"Sorry we could not execute the query."}';
                 
 			}else{
+				
+								
 				echo '{"result":1,"message":"Equipment successfully edited."}';
 			}	
 		}
@@ -87,6 +95,43 @@
 			}else{
 				echo '{"result":1,"message":"Equipment successfully deleted."}';
 			}
+	}
+	function search_equipment(){
+	if(!isset($_REQUEST['st'])){
+		echo '{"result":0,"message": "search did not work."}';
+	}
+	$search_text=$_REQUEST['st'];
+	include_once("equipment.php");
+	$obj=new equipment();
+	if(!$obj->search_equipment($search_text)){
+		echo '{"result":0,"message": "search did not work."}';
+		return;
+	}
+	$row=$obj->fetch();
+	echo '{"result":1,"equipment":[';
+	$count=0;
+	while($row){
+		$count++;
+		echo json_encode($row);
+		$row=$obj->fetch();
+		if($row){
+			echo ",";
+		}
+	}
+	echo '], "message":"'.$count.' results found with \"'.$search_text.'\"","numRows":'.$count.'}';
+}
+
+	function get_last(){
+		include_once("equipment.php");
+		$obj=new equipment();
+		$obj->connect();
+		$response=$obj->get_most_recently_added();
+		if(!$response){
+			echo '{"result":0,"message": "search did not work."}';
+			return;
+		}else{
+			echo '{"result":1, "response":'.$response['equipment_id'].'}';
+		}
 	}
 	
 ?>

@@ -45,6 +45,24 @@
             $str_query = "select lab_name from webtech_project_labs wl left join webtech_project_equipment we on we.lab_id=wl.lab_id where we.course_id=$lid";
             return $this->query($str_query);
         }
+		function get_most_recently_added(){
+			$str_query = "SELECT equipment_id FROM webtech_project_equipment
+				ORDER BY equipment_id DESC
+				LIMIT 1";
+				if(!$this->query($str_query)){
+					return false;
+				}else{
+					return $this->fetch();
+				}
+		}
+		function search_equipment($equipment){
+			$str_query = "SELECT * FROM webtech_project_equipment INNER JOIN webtech_project_supplier ON 
+							webtech_project_supplier.supplier_id = webtech_project_equipment.supplier_id INNER JOIN 
+							webtech_project_labs ON 
+							webtech_project_equipment.lab_id = webtech_project_labs.lab_id WHERE
+							webtech_project_equipment.equipment_name LIKE'$equipment%'";
+			return $this->query($str_query);
+		}
 	}
         
 ?>

@@ -41,13 +41,15 @@ function search_labs(){
 	}
 	$row=$obj->fetch();
 	echo '{"result":1,"labs":[';
+	$count=0;
 	while($row){
+		$count++;
 		echo json_encode($row);
 		$row=$obj->fetch();
 		if($row){
 			echo ",";
 		}
 	}
-	echo "]}";
+	echo '], "message":"'.$count.' results found with \"'.$search_text.'\"","numRows":'.$count.'}';
 }
 ?>

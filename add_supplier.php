@@ -20,14 +20,14 @@
 		<form method="GET" action="add_supplier.php">
 		<table>
 		<tr>
-			<td>Supplier's Name</td><td><input type="text" id="name" name="sn"></td>
+			<td>Supplier's Name</td><td><input type="text" id="name" name="sn" required></td>
 		</tr>
 		
 		<tr>
-			<td>Supplier's address:</td><td><input type="text" id="dephead" name="sa"</td>
+			<td>Supplier's address:</td><td><input type="text" id="dephead" name="sa"required></td>
 		</tr>
 		<tr>
-			<td>Phone number:</td><td><input type="text" id="pn" name="ll"></td>
+			<td>Phone number:</td><td><input type="text" id="pn" name="ll"required></td>
 		</tr>
 		<tr>
 			<td></td><td><input type="submit" name="do" value="ADD"></td>

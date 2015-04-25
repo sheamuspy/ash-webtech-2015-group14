@@ -52,9 +52,9 @@
 						row = row+"<tr class='header'><td>Lab Name</td><td>Department Head</td><td>Location</td><td></td><td></td></tr>";
 			    	for(var i=0; i<obj.length; i++){
 			    	if(i%2==0){
-						row=row+"<tr class='row1'>";
+						row=row+"<tr onclick='viewData("+obj[i].lab_id+")' class='row1' style='cursor:pointer'>";
 					}else{
-						row=row+"<tr class='row2'>";
+						row=row+"<tr onclick='viewData("+obj[i].lab_id+")' class='row2' style='cursor:pointer'>";
 					}
 			    	row=row+"<td>" + obj[i].lab_name + "</td>";
 			    	row=row+"<td>" + obj[i].department_head + "</td>";
@@ -64,6 +64,8 @@
 			      	}
 					row = row+"</table>";
 					$("#tableExample").html(row);
+					$("#divStatus").html(objResult.message);
+					divStatus.style.backgroundColor="green";
 				}
 			}
 			function exitView(){
@@ -83,6 +85,7 @@
 			</tr>
 			<tr>
 				<td id="mainnav">
+					<div><?php echo $_SESSION['USERNAME']?><br> logged in</div>
 					<a href="index.php" style="text-decoration:none"><div class="menuitem">Home</div></a>
 					<a href="equipment_page.php" style="text-decoration:none"><div class="menuitem">Equipment</div></a>
 					<a href="labpage.php" style="text-decoration:none"><div class="menuitem"><b>Labs</b></div></a>
@@ -99,7 +102,7 @@
 						<span class="menuitem" id="exit" onclick="exitView()" hidden="true">Exit</span>
 					</div>
 					<div align="right">
-						<input type="text" id="txtSearch" placeholder="Search"/>
+						<input type="text" id="txtSearch" placeholder="Search for lab by name"/>
 						<span class="menuitem" onclick="search()">search</span>
 							</div>		
 					</div>
@@ -131,7 +134,7 @@
 										$row_indicator = 0;
 									}
 									$id=$row['lab_id'];
-									echo "<tr class=$class onclick='viewData($id)'>
+									echo "<tr class=$class onclick='viewData($id)' style='cursor:pointer'>
 									<td >{$row['lab_name']}</td>
 									<td>{$row['department_head']}</td>
 									<td>{$row['lab_location']}</td>
